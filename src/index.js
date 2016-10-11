@@ -104,6 +104,18 @@ function isInvisible(element, options) {
     return true;
   }
 
+  // return true if element is under another element
+  if (
+    // check all 4 corners and the middle in case of rounded corners
+    !element.contains(document.elementFromPoint(elementLeft, elementTop)) &&
+    !element.contains(document.elementFromPoint(elementRight, elementTop)) &&
+    !element.contains(document.elementFromPoint(elementRight, elementBottom)) &&
+    !element.contains(document.elementFromPoint(elementLeft, elementBottom)) &&
+    !element.contains(document.elementFromPoint(elementRight - (elementWidth / 2), elementBottom - (elementHeight / 2)))
+  ) {
+    return true;
+  }
+
   // recursively check upwards ...
   return isInvisible(parentNode, {
     elementHeight,
