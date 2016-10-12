@@ -106,7 +106,13 @@ function isInvisible(element, options) {
 
   // return true if element is under another element
   if (
-    // check the middle in case of rounded corners
+    // check all 4 corners and the middle in case of rounded corners
+    !element.contains(document.elementFromPoint(elementLeft, elementTop)) &&
+    !element.contains(document.elementFromPoint(elementRight, elementTop)) &&
+    !element.contains(document.elementFromPoint(elementRight, elementBottom)) &&
+    !element.contains(document.elementFromPoint(elementLeft, elementBottom)) &&
+    !element.contains(document.elementFromPoint(elementLeft + (elementWidth / 2), elementTop + (elementHeight / 2))) &&
+    // if element is outside viewport
     !element.contains(elementFromAbsolutePoint(elementLeft + (elementWidth / 2), elementTop + (elementHeight / 2)))
   ) {
     return true;
