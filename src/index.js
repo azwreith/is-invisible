@@ -106,12 +106,8 @@ function isInvisible(element, options) {
 
   // return true if element is under another element
   if (
-    // check all 4 corners and the middle in case of rounded corners
-    !element.contains(document.elementFromPoint(elementLeft, elementTop)) &&
-    !element.contains(document.elementFromPoint(elementRight, elementTop)) &&
-    !element.contains(document.elementFromPoint(elementRight, elementBottom)) &&
-    !element.contains(document.elementFromPoint(elementLeft, elementBottom)) &&
-    !element.contains(document.elementFromPoint(elementRight - (elementWidth / 2), elementBottom - (elementHeight / 2)))
+    // check the middle in case of rounded corners
+    !element.contains(elementFromAbsolutePoint(elementLeft + (elementWidth / 2), elementTop + (elementHeight / 2)))
   ) {
     return true;
   }
@@ -180,6 +176,23 @@ function elementInDocument(element) {
     element = element.parentNode;
   }
   return false;
+}
+
+function elementFromAbsolutePoint(x, y) {
+  // Stash current Window Scroll
+  const scrollX = window.pageXOffset;
+  const scrollY = window.pageYOffset;
+  // Scroll to element
+  window.scrollTo(x, y);
+  // Calculate new relative element coordinates
+  const newX = x - window.pageXOffset;
+  const newY = y - window.pageYOffset;
+  // Grab the element
+  const elm = document.elementFromPoint(newX, newY);
+  // revert to the previous scroll location
+  window.scrollTo(scrollX, scrollY);
+  // returned the grabbed element at the absolute coordinates
+  return elm;
 }
 
 module.exports = isInvisible;
