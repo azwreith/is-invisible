@@ -13,10 +13,13 @@ const zindexStyle = `
   }
 
   .z-d {
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    height: 300px;
+    position: fixed;
     z-index: 5 !important;
     background: blue !important;
-    position: relative;
-    top: -102px;
   }
 
 `;
@@ -29,28 +32,16 @@ const zindexMarkup = `
   z-index: higher
   <div class="wrapper">
     <div class="inline-block z-h"></div>
-    <div class="inline-block z-d"></div>
   </div>
 
   z-index: lower
   <div class="wrapper">
     <div class="inline-block z-l"></div>
-    <div class="inline-block z-d"></div>
   </div>
 
-`;
+  <div class="z-d"></div>
 
-// const defaultMarkup = `
-//   default element
-//   <div class="wrapper">
-//     <div class="inline-block z-d"></div>
-//   </div>
-//
-//   default element
-//   <div class="wrapper">
-//     <div class="inline-block z-d"></div>
-//   </div>
-// `;
+`;
 
 const zindexWrapperNode = document.createElement('div');
 zindexWrapperNode.innerHTML = zindexMarkup;
